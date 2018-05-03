@@ -6,6 +6,8 @@
  */
 module.exports = function(grunt) {
     return {
+        apps: ['superdesk-planning'],
+
         bodyClass: {
             'indent-article': 1
         },

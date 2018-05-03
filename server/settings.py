@@ -139,6 +139,8 @@ INSTALLED_APPS.extend([
     'apps.picture_crop',
     'apps.languages',
 
+    'planning',
+
     'ntb.macros'
 ])
 
