@@ -1,6 +1,5 @@
 import {startApp} from 'superdesk-core/scripts/index';
-import autoTaggingWidget from 'superdesk-core/scripts/extensions/auto-tagging-widget/dist/src/extension';
-import './styles.css';
+import './ntb/styles.css';
 
 const planningConfiguration = {
     assignmentsTopBarWidget: true,
@@ -11,7 +10,7 @@ setTimeout(() => {
         [
             {
                 id: 'auto-tagging-widget',
-                load: () => import('superdesk-core/scripts/extensions/auto-tagging-widget')
+                load: () => import('./ntb/extensions/auto-tagging-widget'),
             },
             {
                 id: 'planning-extension',
@@ -28,6 +27,6 @@ export default angular.module('ntb', [])
         // replace core login template with custom
         $templateCache.put(
             'scripts/core/auth/login-modal.html',
-            require('./views/login-modal.html'),
+            require('./ntb/views/login-modal.html'),
         );
     }]);
