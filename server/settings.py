@@ -102,6 +102,7 @@ INSTALLED_APPS = [
 
     'ntb.macros',
     'ntb.push_content_notification',
+    'ntb.imatrics',
 ]
 
 RENDITIONS = {
