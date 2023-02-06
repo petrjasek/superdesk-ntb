@@ -1,7 +1,11 @@
+import json
+
 from unittest import mock
 from ntb.publish.ntb_ninjs import NTBNINJSFormatter
 from superdesk.tests import TestCase
-import json
+
+
+FAMILY_ID = "abcd"
 
 
 @mock.patch(
@@ -9,9 +13,11 @@ import json
     lambda self, subscriber: 1,
 )
 class Ninjs2FormatterTest(TestCase):
+    maxDiff = None
     article = {
         "_id": "5ba1224e0d6f13056bd82d50",
-        "family_id": "5ba1224e0d6f13056bd82d50",
+        "family_id": FAMILY_ID,
+        "rewrite_sequence": 3,
         "type": "text",
         "version": 1,
         "profile": "5ba11fec0d6f1301ac3cbd14",
@@ -100,6 +106,14 @@ class Ninjs2FormatterTest(TestCase):
                 "source": "imatrics",
                 "original_source": "1013",
             },
+            {
+                "scheme": "place_custom",
+                "parent": None,
+                "ntb_parent": None,
+                "name": "Global",
+                "qcode": "Global",
+                "ntb_qcode": "Global",
+            },
         ],
         "object": [
             {
@@ -134,7 +148,7 @@ class Ninjs2FormatterTest(TestCase):
         "language": "nb-NO",
         "priority": 6,
         "urgency": 3,
-        "sign_off": "admin@example.com",
+        "sign_off": "admin@example.com/foo@bar.com",
         "language": "nb-NO",
         "operation": "publish",
         "version_creator": "ObjectId(" "5640a5eef40235008465242b" ")",
@@ -214,6 +228,26 @@ class Ninjs2FormatterTest(TestCase):
                 },
                 {"name": "matlaging", "uri": "topics:20001253"},
                 {"name": "Fritid", "uri": "subject_custom:10000000"},
+            ],
+            "altids": [
+                {"role": "GUID", "value": self.article["guid"]},
+                {"role": "NTB-ID", "value": "NTB{}".format(FAMILY_ID)},
+                {"role": "DOC-ID", "value": "NTB{}_03".format(FAMILY_ID)},
+            ],
+            "places": [
+                {
+                    "name": "Gjerdrum",
+                    "uri": "http://www.wikidata.org/entity/Q57084",
+                    "literal": "b564b1e1-1a99-324e-b643-88e5398305c6",
+                },
+                {
+                    "name": "Global",
+                    "rel": "county-dist",
+                },
+            ],
+            "taglines": [
+                {"value": "admin@example.com"},
+                {"value": "foo@bar.com"},
             ],
         }
 
